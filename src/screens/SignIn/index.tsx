@@ -4,8 +4,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
-  Platform,
-  ScrollView,
 } from "react-native";
 import { useTheme } from "styled-components";
 import { Button } from "../../components/Form/Button";
@@ -21,52 +19,44 @@ import {
   SignInButton,
   ButtonText,
   Footer,
-  Content,
 } from "./styles";
 
 export function SignIn() {
   const theme = useTheme();
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{ flex: 1 }}
-    >
-      <Container>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
+    <Container>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+
+      <Header>
+        <Title>Estamos{"\n"}quase lá.</Title>
+        <SubTitle>
+          Faça seu login para começar{"\n"}uma experiência incrível.
+        </SubTitle>
+      </Header>
+
+      <Form>
+        <Input
+          iconName="mail"
+          placeholder="E-mail"
+          keyboardType={"email-address"}
+          autoCorrect={false}
+          autoCapitalize={"none"}
         />
 
-        <Content>
-          <Header>
-            <Title>Estamos{"\n"}quase lá.</Title>
-            <SubTitle>
-              Faça seu login para começar{"\n"}uma experiência incrível.
-            </SubTitle>
-          </Header>
+        <PasswordInput iconName="lock" placeholder="Senha" />
+      </Form>
 
-          <Form>
-            <Input
-              iconName="mail"
-              placeholder="E-mail"
-              keyboardType={"email-address"}
-              autoCorrect={false}
-              autoCapitalize={"none"}
-            />
+      <Footer>
+        <Button title="Entrar" color={theme.colors.button} />
 
-            <PasswordInput iconName="lock" placeholder="Senha" />
-          </Form>
-
-          <Footer>
-            <Button title="Entrar" color={theme.colors.button} />
-
-            <SignInButton>
-              <ButtonText>Cadastrar-se</ButtonText>
-            </SignInButton>
-          </Footer>
-        </Content>
-      </Container>
-    </ScrollView>
+        <SignInButton>
+          <ButtonText>Cadastrar-se</ButtonText>
+        </SignInButton>
+      </Footer>
+    </Container>
   );
 }

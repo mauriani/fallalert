@@ -5,8 +5,6 @@ import { Container } from "./styles";
 export function Loading() {
   const theme = useTheme();
 
-  console.log(theme);
-
   return (
     <Container>
       <ActivityIndicator color={theme.colors.main} />
