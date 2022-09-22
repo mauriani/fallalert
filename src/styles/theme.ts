@@ -26,7 +26,6 @@ export default {
   fonts: {
     primary_400: "Montserrat_400Regular",
     primary_500: "Montserrat_500Medium",
-    primary_600: "Montserrat_600SemiBold",
     primary_700: "Montserrat_700Bold",
   },
 };
