@@ -18,7 +18,8 @@ export default {
     success: "#03b252",
 
     shape: "#e1e1e8",
-    shepe_dark: "#29292e",
+    shape_dark: "#29292e",
+    shape_line: "#e1e5eb",
 
     button: "#2F4858",
   },

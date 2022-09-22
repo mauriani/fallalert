@@ -1,9 +1,4 @@
 import styled from "styled-components/native";
-import {
-  getBottomSpace,
-  getStatusBarHeight,
-} from "react-native-iphone-x-helper";
-
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const HeaderContainer = styled.View`
@@ -16,13 +11,12 @@ export const HeaderContainer = styled.View`
 
   padding: 30px 24px;
 
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 `;
 
-export const Logo = styled.Image`
-  width: ${RFValue(200)}px;
-  height: ${RFValue(110)}px;
-
-  margin-top: 10px;
+export const HeaderTitle = styled.Text`
+  font-size: ${RFValue(20)}px;
+  font-family: ${({ theme }) => theme.fonts.primary_500};
+  color: ${({ theme }) => theme.colors.shape_dark};
 `;

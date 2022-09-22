@@ -1,5 +1,10 @@
-import { View } from "react-native";
+import { HeaderStack } from "../../components/HeaderStack";
+import { Container } from "./styles";
 
 export function Profile() {
-  return <View></View>;
+  return (
+    <Container>
+      <HeaderStack title="Perfil" />
+    </Container>
+  );
 }
