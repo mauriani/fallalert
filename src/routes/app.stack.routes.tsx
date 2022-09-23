@@ -5,6 +5,7 @@ import { SignIn } from "../screens/SignIn";
 import { SignUp } from "../screens/SignUp";
 import { Profile } from "../screens/Profile";
 import { Home } from "../screens/Home";
+import { DetailsSeniors } from "../screens/DetailsSeniors";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export function AppStackRoutes() {
       <Screen name="SignIn" component={SignIn} />
       <Screen name="SignUp" component={SignUp} />
       <Screen name="Profile" component={Profile} />
+      <Screen name="DetailsSeniors" component={DetailsSeniors} />
     </Navigator>
   );
 }

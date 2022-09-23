@@ -1,3 +1,4 @@
+import { BackButton } from "../BackButton";
 import { HeaderContainer, HeaderTitle } from "./styles";
 
 interface props {

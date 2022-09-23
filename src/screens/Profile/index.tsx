@@ -3,6 +3,9 @@ import { useTheme } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
+import { Input } from "../../components/Form/Input";
+import { PasswordInput } from "../../components/Form/PasswordInput";
+
 import {
   Container,
   Header,
@@ -16,6 +19,7 @@ import {
   Options,
   Option,
   OptionTitle,
+  Section,
 } from "./styles";
 
 export function Profile() {
@@ -73,6 +77,32 @@ export function Profile() {
             </OptionTitle>
           </Option>
         </Options>
+
+        {option === "dataEdit" ? (
+          <Section>
+            <Input
+              iconName="user"
+              placeholder="Nome"
+              autoCorrect={false}
+              // defaultValue={user.name}
+              // onChangeText={setName}
+            />
+
+            <Input
+              iconName="credit-card"
+              placeholder="CNH"
+              keyboardType={"numeric"}
+              // defaultValue={user.driver_license}
+              // onChangeText={setDriverLicense}
+            />
+          </Section>
+        ) : (
+          <Section>
+            <PasswordInput iconName="lock" placeholder="Senha atual" />
+            <PasswordInput iconName="lock" placeholder="Nova senha" />
+            <PasswordInput iconName="lock" placeholder="Confirma senha" />
+          </Section>
+        )}
       </Content>
     </Container>
   );

@@ -1,4 +1,5 @@
 import { Header } from "../../components/Header";
+import { useNavigation } from "@react-navigation/native";
 import {
   Container,
   CardHome,
@@ -9,11 +10,15 @@ import {
 } from "./styles";
 
 export function Home() {
+  const navigation = useNavigation();
+  function handleNavigateToDetailsSenior() {
+    navigation.navigate("DetailsSeniors");
+  }
   return (
     <Container>
       <Header />
 
-      <CardHome>
+      <CardHome onPress={() => handleNavigateToDetailsSenior()}>
         <Details>
           <Description>Nome</Description>
           <Name>Emanuel Silva</Name>
@@ -30,7 +35,7 @@ export function Home() {
         />
       </CardHome>
 
-      <CardHome>
+      <CardHome onPress={() => handleNavigateToDetailsSenior()}>
         <Details>
           <Description>Nome</Description>
           <Name>Glória Maria</Name>
