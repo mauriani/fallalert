@@ -4,12 +4,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SignIn } from "../screens/SignIn";
 import { SignUp } from "../screens/SignUp";
 import { Profile } from "../screens/Profile";
-import { Home } from "../screens/Home";
+
 import { DetailsSeniors } from "../screens/DetailsSeniors";
 
 import { AppTabRoutes } from "./app.tab.routes";
 
-const { Navigator, Screen } = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Profile: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  DetailsSeniors: undefined;
+};
+
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 export function AppStackRoutes() {
   return (

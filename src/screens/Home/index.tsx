@@ -1,3 +1,8 @@
+import { SafeAreaView } from "react-native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { useTheme } from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+
 import { Header } from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -7,13 +12,21 @@ import {
   Name,
   Description,
   CardImage,
+  FabButton,
 } from "./styles";
 
 export function Home() {
+  const theme = useTheme();
   const navigation = useNavigation();
+
   function handleNavigateToDetailsSenior() {
     navigation.navigate("DetailsSeniors");
   }
+
+  function handleNavigateToAddSenior() {
+    navigation.navigate("DetailsSeniors");
+  }
+
   return (
     <Container>
       <Header />
@@ -51,6 +64,14 @@ export function Home() {
           resizeMode="contain"
         />
       </CardHome>
+
+      <FabButton activeOpacity={0.7} onPress={handleNavigateToAddSenior}>
+        <Feather
+          size={25}
+          name="plus"
+          color={theme.colors.background_secondary}
+        />
+      </FabButton>
     </Container>
   );
 }

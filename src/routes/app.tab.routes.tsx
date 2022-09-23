@@ -10,7 +10,12 @@ import PeopleSvg from "../assets/people.svg";
 import { Profile } from "../screens/Profile";
 import { Home } from "../screens/Home";
 
-const { Navigator, Screen } = createBottomTabNavigator();
+export type RootStackParamList = {
+  Dashboard: undefined;
+  Profile: undefined;
+};
+
+const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>();
 
 export function AppTabRoutes() {
   const theme = useTheme();
@@ -37,7 +42,7 @@ export function AppTabRoutes() {
           ),
         }}
       />
-      
+
       <Screen
         name="Profile"
         component={Profile}

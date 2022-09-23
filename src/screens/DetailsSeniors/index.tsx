@@ -1,7 +1,7 @@
 import React from "react";
 import Lottie from "lottie-react-native";
 import { useTheme } from "styled-components";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   Container,
