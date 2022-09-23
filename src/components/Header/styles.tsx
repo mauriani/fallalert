@@ -10,14 +10,12 @@ export const HeaderContainer = styled.View`
   width: 100%;
   height: 115px;
 
-  background-color: ${({ theme }) => theme.colors.shape_line};
+  background-color: ${({ theme }) => theme.colors.header};
 
   justify-content: flex-end;
+  align-items: center;
 
   padding: 30px 24px;
-
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
 `;
 
 export const Logo = styled.Image`
@@ -25,4 +23,11 @@ export const Logo = styled.Image`
   height: ${RFValue(110)}px;
 
   margin-top: 10px;
+`;
+
+export const HeaderTitle = styled.Text`
+  font-size: ${RFValue(15)}px;
+  font-family: ${({ theme }) => theme.fonts.primary_700};
+  color: ${({ theme }) => theme.colors.background_primary};
+  text-transform: uppercase;
 `;

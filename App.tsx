@@ -9,6 +9,12 @@ import {
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
 
+import {
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
+
 import theme from "./src/styles/theme";
 import { Loading } from "./src/components/Loading";
 import { Routes } from "./src/routes";
@@ -18,6 +24,9 @@ export default function App() {
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_700Bold,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
   });
 
   return (

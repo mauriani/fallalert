@@ -1,8 +1,7 @@
 export default {
   colors: {
-    header: "#1b1b1f",
+    header: "#4086e7",
 
-    background: "#4086e7",
     background_primary: "#f4f5f6",
     background_secondary: "#ffffff",
 
@@ -28,5 +27,9 @@ export default {
     primary_400: "Montserrat_400Regular",
     primary_500: "Montserrat_500Medium",
     primary_700: "Montserrat_700Bold",
+
+    secondary_400: "Roboto_400Regular",
+    secondary_500: "Roboto_500Medium",
+    secondary_700: "Roboto_700Bold",
   },
 };
