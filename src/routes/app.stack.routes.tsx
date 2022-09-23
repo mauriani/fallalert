@@ -7,6 +7,8 @@ import { Profile } from "../screens/Profile";
 import { Home } from "../screens/Home";
 import { DetailsSeniors } from "../screens/DetailsSeniors";
 
+import { AppTabRoutes } from "./app.tab.routes";
+
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppStackRoutes() {
@@ -17,7 +19,7 @@ export function AppStackRoutes() {
       }}
       initialRouteName="Home"
     >
-      <Screen name="Home" component={Home} />
+      <Screen name="Home" component={AppTabRoutes} />
       <Screen name="SignIn" component={SignIn} />
       <Screen name="SignUp" component={SignUp} />
       <Screen name="Profile" component={Profile} />

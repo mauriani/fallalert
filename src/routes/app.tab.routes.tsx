@@ -30,7 +30,7 @@ export function AppTabRoutes() {
     >
       <Screen
         name="Dashboard"
-        component={AppStackRoutes}
+        component={Home}
         options={{
           tabBarIcon: ({ color }) => (
             <HomeSvg width={24} height={24} fill={color} />
