@@ -1,5 +1,3 @@
-import { SafeAreaView } from "react-native";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
@@ -24,7 +22,7 @@ export function Home() {
   }
 
   function handleNavigateToAddSenior() {
-    navigation.navigate("DetailsSeniors");
+    navigation.navigate("SignUpFirstStep");
   }
 
   return (
