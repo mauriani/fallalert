@@ -22,7 +22,7 @@ export function Home() {
   }
 
   function handleNavigateToAddSenior() {
-    navigation.navigate("SignUpFirstStep");
+    navigation.navigate("AddDependency");
   }
 
   return (

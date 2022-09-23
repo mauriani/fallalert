@@ -39,7 +39,6 @@ export function Profile() {
     <Container>
       <Header>
         <HeaderTop>
-          {/* <BackButton color={theme.colors.shape} onPress={handleBack} /> */}
           <HeaderTitle>Editar Perfil</HeaderTitle>
           <LogoutButton onPress={() => {}}>
             <Feather name="power" size={24} color={theme.colors.shape} />
