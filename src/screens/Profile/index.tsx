@@ -31,8 +31,8 @@ export function Profile() {
     setOption(optionSelected);
   }
 
-  function handleBack() {
-    navigation.goBack();
+  function handleLogout() {
+    navigation.navigate("SignIn");
   }
 
   return (
@@ -40,7 +40,7 @@ export function Profile() {
       <Header>
         <HeaderTop>
           <HeaderTitle>Editar Perfil</HeaderTitle>
-          <LogoutButton onPress={() => {}}>
+          <LogoutButton onPress={handleLogout}>
             <Feather name="power" size={24} color={theme.colors.shape} />
           </LogoutButton>
         </HeaderTop>

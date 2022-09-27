@@ -49,8 +49,8 @@ export const CardImage = styled.Image`
 
 export const FabButton = styled.TouchableOpacity`
   position: absolute;
-  right: ${RFValue(6)}px;
-  bottom: ${RFValue(10)}px;
+  right: ${RFValue(20)}px;
+  bottom: ${RFValue(20)}px;
 
   width: ${RFValue(50)}px;
   height: ${RFValue(50)}px;

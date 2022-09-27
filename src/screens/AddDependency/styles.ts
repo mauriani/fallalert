@@ -6,25 +6,6 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background_primary};
 `;
 
-export const HeaderContainer = styled.View`
-  width: 100%;
-  height: 115px;
-
-  background-color: ${({ theme }) => theme.colors.header};
-
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 30px;
-`;
-
-export const HeaderTitle = styled.Text`
-  font-size: ${RFValue(15)}px;
-  font-family: ${({ theme }) => theme.fonts.primary_700};
-  color: ${({ theme }) => theme.colors.background_primary};
-`;
-
 export const ContentPhoto = styled.View`
   width: 100%;
   align-items: center;

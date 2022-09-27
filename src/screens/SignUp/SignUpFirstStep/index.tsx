@@ -74,7 +74,7 @@ export function SignUpFirstStep() {
             />
             <Input
               iconName="credit-card"
-              placeholder="CNH"
+              placeholder="CPF"
               keyboardType={"numeric"}
               // value={driverLicense}
               // onChangeText={setDriverLicense}

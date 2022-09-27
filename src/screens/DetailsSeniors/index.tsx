@@ -5,8 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import {
   Container,
-  HeaderContainer,
-  HeaderTitle,
   Card,
   CardTitle,
   Content,
@@ -14,10 +12,10 @@ import {
   Informations,
   Status,
 } from "./styles";
-import { BackButton } from "../../components/BackButton";
 
 import heartbeat from "../../assets/heartbeat.json";
 import bloodPressure from "../../assets/bloodPressure.json";
+import { HeaderStack } from "../../components/HeaderStack";
 
 export function DetailsSeniors() {
   const theme = useTheme();
@@ -29,10 +27,7 @@ export function DetailsSeniors() {
 
   return (
     <Container>
-      <HeaderContainer>
-        <BackButton onPress={handleGoBack} color={theme.colors.shape} />
-        <HeaderTitle>Detalhes</HeaderTitle>
-      </HeaderContainer>
+      <HeaderStack title={"Detalhes"} />
 
       <Card>
         <CardTitle>Emanuel Silva</CardTitle>

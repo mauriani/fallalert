@@ -30,6 +30,10 @@ export function SignUpSecondStep() {
   function handleBack() {
     navigation.goBack();
   }
+
+  function registerSignUp() {
+    navigation.navigate("Home");
+  }
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -74,7 +78,7 @@ export function SignUpSecondStep() {
           <Button
             title="Cadastrar"
             color={theme.colors.success}
-            onPress={() => {}}
+            onPress={registerSignUp}
           />
         </Container>
       </TouchableWithoutFeedback>

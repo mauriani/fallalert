@@ -7,10 +7,26 @@ export const HeaderContainer = styled.View`
 
   background-color: ${({ theme }) => theme.colors.header};
 
-  justify-content: flex-end;
+  flex-direction: row;
   align-items: center;
 
-  padding: 30px 24px;
+  padding: 30px;
+`;
+
+export const ContainerBack = styled.View`
+  width: 10%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+export const HeaderCenter = styled.View`
+  width: 90%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 export const HeaderTitle = styled.Text`

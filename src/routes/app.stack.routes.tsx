@@ -34,7 +34,7 @@ export function AppStackRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Home"
+      initialRouteName="SignIn"
     >
       <Screen name="Home" component={AppTabRoutes} />
       <Screen name="SignIn" component={SignIn} />

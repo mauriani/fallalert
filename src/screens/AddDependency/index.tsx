@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { View } from "react-native";
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
@@ -10,8 +11,6 @@ import { Button } from "../../components/Form/Button";
 import profileAvatar from "../../assets/bighead.png";
 import {
   Container,
-  HeaderContainer,
-  HeaderTitle,
   ContentPhoto,
   PhotoContainer,
   Photo,
@@ -19,6 +18,7 @@ import {
   Content,
   Form,
 } from "./styles";
+import { HeaderStack } from "../../components/HeaderStack";
 
 export function AddDependency() {
   const theme = useTheme();
@@ -33,10 +33,8 @@ export function AddDependency() {
 
   return (
     <Container>
-      <HeaderContainer>
-        <BackButton onPress={handleGoBack} color={theme.colors.shape} />
-        <HeaderTitle>Adicionar Dependente</HeaderTitle>
-      </HeaderContainer>
+      <HeaderStack title={"Adicionar Dependente"} />
+
       <ContentPhoto>
         <PhotoContainer>
           <Photo source={profileAvatar} />
@@ -51,6 +49,13 @@ export function AddDependency() {
         <Form>
           <Input iconName="user" placeholder="Nome" />
           <Input iconName="user" placeholder="Grau de parentesco" />
+          <Input iconName="user" placeholder="CPF" />
+          <Input iconName="user" placeholder="Telefone" />
+          <Input iconName="user" placeholder="CEP" />
+          <Input iconName="user" placeholder="CEP" />
+          <Input iconName="user" placeholder="CEP" />
+          <Input iconName="user" placeholder="CEP" />
+          <Input iconName="user" placeholder="CEP" />
         </Form>
 
         <Button title="Adicionar" onPress={() => {}} />

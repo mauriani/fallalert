@@ -6,6 +6,8 @@ import {
   StatusBar,
 } from "react-native";
 import { useTheme } from "styled-components";
+import { useNavigation } from "@react-navigation/native";
+
 import { Button } from "../../components/Form/Button";
 import { Input } from "../../components/Form/Input";
 import { PasswordInput } from "../../components/Form/PasswordInput";
@@ -23,6 +25,15 @@ import {
 
 export function SignIn() {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  function login() {
+    navigation.navigate("Home");
+  }
+
+  function register() {
+    navigation.navigate("SignUpFirstStep");
+  }
   return (
     <Container>
       <StatusBar
@@ -51,9 +62,9 @@ export function SignIn() {
       </Form>
 
       <Footer>
-        <Button title="Entrar" color={theme.colors.button} />
+        <Button title="Entrar" color={theme.colors.button} onPress={login} />
 
-        <SignInButton>
+        <SignInButton onPress={register}>
           <ButtonText>Cadastrar-se</ButtonText>
         </SignInButton>
       </Footer>
