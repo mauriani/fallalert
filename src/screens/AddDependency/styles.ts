@@ -43,8 +43,9 @@ export const PhotoButton = styled.TouchableOpacity`
   right: 10px;
 `;
 
-export const Content = styled.View`
+export const Content = styled.ScrollView`
   padding: 0 24px;
+  height: ${RFValue(300)}px;
 `;
 
 export const Form = styled.View`

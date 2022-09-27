@@ -49,13 +49,12 @@ export function AddDependency() {
         <Form>
           <Input iconName="user" placeholder="Nome" />
           <Input iconName="user" placeholder="Grau de parentesco" />
-          <Input iconName="user" placeholder="CPF" />
-          <Input iconName="user" placeholder="Telefone" />
-          <Input iconName="user" placeholder="CEP" />
-          <Input iconName="user" placeholder="CEP" />
-          <Input iconName="user" placeholder="CEP" />
-          <Input iconName="user" placeholder="CEP" />
-          <Input iconName="user" placeholder="CEP" />
+          <Input iconName="credit-card" placeholder="CPF" />
+          <Input iconName="phone" placeholder="Telefone" />
+          <Input iconName="home" placeholder="CEP" />
+          <Input iconName="home" placeholder="Rua" />
+          <Input iconName="home" placeholder="Bairro" />
+          <Input iconName="home" placeholder="Número" />
         </Form>
 
         <Button title="Adicionar" onPress={() => {}} />
