@@ -89,7 +89,7 @@ export function Profile() {
 
             <Input
               iconName="credit-card"
-              placeholder="CNH"
+              placeholder="CPF"
               keyboardType={"numeric"}
               // defaultValue={user.driver_license}
               // onChangeText={setDriverLicense}

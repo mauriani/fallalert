@@ -1,32 +1,31 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
 export const HeaderContainer = styled.View`
   width: 100%;
-  height: 115px;
+  height: ${RFValue(113)}px;
 
   background-color: ${({ theme }) => theme.colors.header};
 
-  flex-direction: row;
-  align-items: center;
+  justify-content: center;
+  padding: 20px;
 
-  padding: 30px;
+  padding-top: ${getStatusBarHeight() + 20}px;
 `;
 
-export const ContainerBack = styled.View`
-  width: 10%;
-  height: 100%;
-
+export const HeaderContent = styled.View`
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 export const HeaderCenter = styled.View`
-  width: 90%;
-  height: 100%;
-
+  flex: 1;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+
+  height: 100%;
 `;
 
 export const HeaderTitle = styled.Text`

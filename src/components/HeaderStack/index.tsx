@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import {
   HeaderContainer,
-  ContainerBack,
+  HeaderContent,
   HeaderCenter,
   HeaderTitle,
 } from "./styles";
@@ -21,12 +21,13 @@ export function HeaderStack({ title }: props) {
   }
   return (
     <HeaderContainer>
-      <ContainerBack>
+      <HeaderContent>
         <BackButton onPress={handleNavigateGoBack} color={theme.colors.shape} />
-      </ContainerBack>
-      <HeaderCenter>
-        <HeaderTitle>{title}</HeaderTitle>
-      </HeaderCenter>
+
+        <HeaderCenter>
+          <HeaderTitle>{title}</HeaderTitle>
+        </HeaderCenter>
+      </HeaderContent>
     </HeaderContainer>
   );
 }
