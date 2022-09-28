@@ -27,14 +27,8 @@ interface IDataProps {
 }
 
 export function DetailsSeniors() {
-  const theme = useTheme();
-  const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [sensorData, setSensorData] = useState<IDataProps[]>([]);
-
-  function handleGoBack() {
-    navigation.goBack();
-  }
 
   async function loadData() {
     try {
