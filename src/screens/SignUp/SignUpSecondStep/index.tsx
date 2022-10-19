@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
+  Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import * as Yup from "yup";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 
+import api from "../../../services/api";
 import { BackButton } from "../../../components/BackButton";
 import { Bullet } from "../../../components/Bullet";
 import { PasswordInput } from "../../../components/Form/PasswordInput";
@@ -23,16 +26,61 @@ import {
   FormTitle,
 } from "./styles";
 
+interface Params {
+  user: {
+    name: string;
+    email: string;
+    cpfUser: string;
+  };
+}
+
 export function SignUpSecondStep() {
   const navigation = useNavigation();
   const theme = useTheme();
+  const route = useRoute();
+
+  const { user } = route.params as Params;
+
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   function handleBack() {
     navigation.goBack();
   }
 
-  function registerSignUp() {
-    navigation.navigate("Home");
+  async function handleRegister() {
+    try {
+      const schema = Yup.object().shape({
+        password: Yup.string()
+          .required("O campo de senha nova é obrigatório")
+          .min(6, "Sua senha precisa ter no mínimo seis caracteres")
+          .matches(
+            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+            "Sua senha deve ter seis ou mais digítos, incluindo números e letras"
+          ),
+        passwordConfirm: Yup.string().oneOf(
+          [Yup.ref("password"), null],
+          "O campo de senha nova e confirma senha precisam ser iguais"
+        ),
+      });
+      const data = { password, passwordConfirm };
+
+      await schema.validate(data);
+
+      const response = await api.post("/users", {
+        name: user.name,
+        email: user.email,
+        cpf: user.cpfUser,
+        photo: "",
+        password,
+      });
+
+      Alert.alert(response.data);
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        return Alert.alert("Atenção", error.message);
+      }
+    }
   }
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -62,23 +110,23 @@ export function SignUpSecondStep() {
               iconName="lock"
               placeholder="Senha"
               secureTextEntry
-              // value={password}
-              // onChangeText={setPassword}
+              value={password}
+              onChangeText={setPassword}
             />
 
             <PasswordInput
               iconName="lock"
               placeholder="Repetir Senha"
               secureTextEntry
-              // value={passwordConfirm}
-              // onChangeText={setPasswordConfirm}
+              value={passwordConfirm}
+              onChangeText={setPasswordConfirm}
             />
           </Form>
 
           <Button
             title="Cadastrar"
             color={theme.colors.success}
-            onPress={registerSignUp}
+            onPress={handleRegister}
           />
         </Container>
       </TouchableWithoutFeedback>

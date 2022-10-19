@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
+  Alert,
 } from "react-native";
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Yup from "yup";
 
+import { useAuth } from "../../context/auth";
 import { Button } from "../../components/Form/Button";
 import { Input } from "../../components/Form/Input";
 import { PasswordInput } from "../../components/Form/PasswordInput";
@@ -27,13 +31,54 @@ export function SignIn() {
   const theme = useTheme();
   const navigation = useNavigation();
 
-  function login() {
-    navigation.navigate("Home");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signIn } = useAuth();
+
+  async function userValidation() {
+    if (await AsyncStorage.getItem("@fallalert:user")) {
+      const dataUser = JSON.parse(
+        await AsyncStorage.getItem("@fallalert:user")
+      );
+
+      console.log(dataUser);
+      if (dataUser) {
+        navigation.navigate("Home");
+      }
+    }
+  }
+
+  async function handleSignIn() {
+    try {
+      const schema = Yup.object().shape({
+        password: Yup.string().required("A senha é obrigatória"),
+        email: Yup.string()
+          .required("E-mail obrigatório")
+          .email("Digite um e-mail válido"),
+      });
+
+      await schema.validate({ email, password });
+
+      signIn({ email, password });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Opa", error.message);
+      } else {
+        Alert.alert(
+          "Erro na autenticação",
+          "Ocorreu um erro ao fazer login, verifique as credenciais"
+        );
+      }
+    }
   }
 
   function register() {
     navigation.navigate("SignUpFirstStep");
   }
+
+  useEffect(() => {
+    userValidation();
+  }, []);
   return (
     <Container>
       <StatusBar
@@ -56,13 +101,25 @@ export function SignIn() {
           keyboardType={"email-address"}
           autoCorrect={false}
           autoCapitalize={"none"}
+          value={email}
+          onChangeText={setEmail}
         />
 
-        <PasswordInput iconName="lock" placeholder="Senha" />
+        <PasswordInput
+          iconName="lock"
+          placeholder="Senha"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
       </Form>
 
       <Footer>
-        <Button title="Entrar" color={theme.colors.button} onPress={login} />
+        <Button
+          title="Entrar"
+          color={theme.colors.button}
+          onPress={() => handleSignIn()}
+        />
 
         <SignInButton onPress={register}>
           <ButtonText>Cadastrar-se</ButtonText>

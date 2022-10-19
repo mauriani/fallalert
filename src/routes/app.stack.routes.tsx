@@ -19,10 +19,10 @@ export type RootStackParamList = {
   DetailsSeniors: undefined;
   AddDependency: undefined;
   SignUpFirstStep: {
-    user: { name: string; email: string; driverLicense: string };
+    user: { name: string; email: string; cpfUser: string };
   };
   SignUpSecondStep: {
-    user: { name: string; email: string; driverLicense: string };
+    user: { name: string; email: string; cpfUser: string };
   };
 };
 

@@ -13,6 +13,12 @@ import { Home } from "../screens/Home";
 export type RootStackParamList = {
   Dashboard: undefined;
   Profile: undefined;
+  SignUpFirstStep: {
+    user: { name: string; email: string; cpfUser: string };
+  };
+  SignUpSecondStep: {
+    user: { name: string; email: string; cpfUser: string };
+  };
 };
 
 const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>();

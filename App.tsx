@@ -18,6 +18,7 @@ import {
 import theme from "./src/styles/theme";
 import { Loading } from "./src/components/Loading";
 import { Routes } from "./src/routes";
+import { AppProvider } from "./src/context";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -37,7 +38,13 @@ export default function App() {
         translucent
       />
 
-      {fontsLoaded ? <Routes /> : <Loading />}
+      {fontsLoaded ? (
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      ) : (
+        <Loading />
+      )}
     </ThemeProvider>
   );
 }

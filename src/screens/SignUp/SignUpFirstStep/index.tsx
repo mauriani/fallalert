@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
+  Alert,
 } from "react-native";
+import * as Yup from "yup";
+import { cpf } from "cpf-cnpj-validator";
+
 import { useNavigation } from "@react-navigation/native";
 
 import { BackButton } from "../../../components/BackButton";
@@ -25,14 +29,56 @@ import {
 export function SignUpFirstStep() {
   const navigation = useNavigation();
 
-  function handleNextStep() {
-    navigation.navigate("SignUpSecondStep");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [cpfUser, setCpfUser] = useState("");
+
+  async function handleNextStep() {
+    try {
+      const schema = Yup.object().shape({
+        cpfUser: Yup.string()
+          .required()
+          .test("test-invalid-cpf", "cpf inválido", (value) =>
+            cpfIsInvalid(value)
+          ),
+        email: Yup.string()
+          .email("E-mail inválido")
+          .required("E-mail é obrigatório"),
+
+        name: Yup.string().required("Nome é obrigatório"),
+      });
+
+      const data = { name, email, cpfUser };
+
+      await schema.validate(data);
+
+      navigation.navigate("SignUpSecondStep", {
+        user: data,
+      });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        return Alert.alert("Opa", error.message);
+      }
+    }
   }
 
   function handleBack() {
     navigation.goBack();
   }
 
+  function cpfIsInvalid(value) {
+    let cpfFormatted = value.replace(/\D/g, "");
+
+    if (cpfFormatted.toString().length >= 11) {
+      const valid = cpf.isValid(cpfFormatted);
+
+      if (valid == false) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -60,8 +106,8 @@ export function SignUpFirstStep() {
             <Input
               iconName="user"
               placeholder="Nome"
-              // value={name}
-              // onChangeText={setName}
+              value={name}
+              onChangeText={setName}
             />
             <Input
               iconName="mail"
@@ -69,15 +115,15 @@ export function SignUpFirstStep() {
               keyboardType={"email-address"}
               autoCorrect={false}
               autoCapitalize={"none"}
-              // value={email}
-              // onChangeText={setEmail}
+              value={email}
+              onChangeText={setEmail}
             />
             <Input
               iconName="credit-card"
               placeholder="CPF"
               keyboardType={"numeric"}
-              // value={driverLicense}
-              // onChangeText={setDriverLicense}
+              value={cpfUser}
+              onChangeText={setCpfUser}
             />
           </Form>
 
