@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import { useTheme } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Input } from "../../components/Form/Input";
 import { PasswordInput } from "../../components/Form/PasswordInput";
@@ -32,7 +34,28 @@ export function Profile() {
   }
 
   function handleLogout() {
-    navigation.navigate("SignIn");
+    Alert.alert(
+      "Sair",
+      "Você realmente deseja sair do Fall Alert ?",
+      [
+        {
+          text: "Sair",
+          onPress: () => submitLogout(),
+        },
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  async function submitLogout() {
+    await AsyncStorage.removeItem("@fallalert:user");
+    const popAction = StackActions.pop(1);
+    navigation.dispatch(popAction);
   }
 
   return (

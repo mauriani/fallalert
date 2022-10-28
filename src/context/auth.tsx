@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 import api from "../services/api";
 
@@ -22,13 +23,6 @@ interface IUser {
 interface SignInCredentials {
   email: string;
   password: string;
-}
-
-interface SignUpCredentials {
-  name: string;
-  email: string;
-  password: string;
-  cpf: string;
 }
 
 interface AuthProviderProps {
@@ -47,6 +41,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<IUser>({} as IUser);
+
   const [loading, setLoading] = useState(true);
 
   async function signIn({ email, password }: SignInCredentials) {
@@ -56,16 +51,14 @@ function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      console.log(response.data, "my response");
+      if (response && response.data) {
+        await AsyncStorage.setItem(
+          "@fallalert:user",
+          JSON.stringify(response.data)
+        );
+      }
 
-      const { user } = response.data;
-
-      // inclui o token no "cabecario" do user
-      // api.defaults.headers.common["Authorization"] = `Bearer ${user.email}`;
-
-      AsyncStorage.setItem("@fallalert:user", JSON.stringify(user));
-
-      setData(user);
+      setData(response.data);
     } catch (err) {
       console.log(err);
       Alert.alert("Opa", "Ocorreu um erro ao verificar credenciais");

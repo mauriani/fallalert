@@ -81,29 +81,29 @@ export function SignUpFirstStep() {
     }
   }
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Container>
-          <StatusBar
-            barStyle="dark-content"
-            translucent
-            backgroundColor="transparent"
-          />
-          <Header>
-            <BackButton onPress={handleBack} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <StatusBar
+          barStyle="dark-content"
+          translucent
+          backgroundColor="transparent"
+        />
+        <Header>
+          <BackButton onPress={handleBack} />
 
-            <Steps>
-              <Bullet active />
-              <Bullet />
-            </Steps>
-          </Header>
+          <Steps>
+            <Bullet active />
+            <Bullet />
+          </Steps>
+        </Header>
 
-          <Title>Crie sua{"\n"}conta</Title>
-          <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
+        <Title>Crie sua{"\n"}conta</Title>
+        <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
 
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+        >
           <Form>
             <FormTitle>01. Dados</FormTitle>
 
@@ -130,10 +130,9 @@ export function SignUpFirstStep() {
               onChangeText={setCpfUser}
             />
           </Form>
-
           <Button title="Próximo" onPress={handleNextStep} />
-        </Container>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }

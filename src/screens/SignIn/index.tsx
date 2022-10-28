@@ -42,8 +42,7 @@ export function SignIn() {
         await AsyncStorage.getItem("@fallalert:user")
       );
 
-      console.log(dataUser);
-      if (dataUser) {
+      if (dataUser?.cpf) {
         navigation.navigate("Home");
       }
     }
@@ -61,6 +60,8 @@ export function SignIn() {
       await schema.validate({ email, password });
 
       signIn({ email, password });
+
+      navigation.navigate("Home");
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert("Opa", error.message);
@@ -82,25 +83,25 @@ export function SignIn() {
   }, []);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Container>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor="transparent"
-            translucent
-          />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
 
-          <Header>
-            <Title>Estamos{"\n"}quase lá.</Title>
-            <SubTitle>
-              Faça seu login para começar{"\n"}uma experiência incrível.
-            </SubTitle>
-          </Header>
+        <Header>
+          <Title>Estamos{"\n"}quase lá.</Title>
+          <SubTitle>
+            Faça seu login para começar{"\n"}uma experiência incrível.
+          </SubTitle>
+        </Header>
 
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+        >
           <Form>
             <Input
               iconName="mail"
@@ -132,8 +133,8 @@ export function SignIn() {
               <ButtonText>Cadastrar-se</ButtonText>
             </SignInButton>
           </Footer>
-        </Container>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }

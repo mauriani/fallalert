@@ -76,7 +76,7 @@ export function SignUpSecondStep() {
         password,
       });
 
-      Alert.alert(response.data);
+      console.log(response.data);
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert("Atenção", error.message);
