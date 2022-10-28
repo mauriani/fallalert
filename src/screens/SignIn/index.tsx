@@ -4,6 +4,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
+  Platform,
   Alert,
 } from "react-native";
 import { useTheme } from "styled-components";
@@ -79,52 +80,60 @@ export function SignIn() {
   useEffect(() => {
     userValidation();
   }, []);
+
   return (
-    <Container>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Container>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="transparent"
+            translucent
+          />
 
-      <Header>
-        <Title>Estamos{"\n"}quase lá.</Title>
-        <SubTitle>
-          Faça seu login para começar{"\n"}uma experiência incrível.
-        </SubTitle>
-      </Header>
+          <Header>
+            <Title>Estamos{"\n"}quase lá.</Title>
+            <SubTitle>
+              Faça seu login para começar{"\n"}uma experiência incrível.
+            </SubTitle>
+          </Header>
 
-      <Form>
-        <Input
-          iconName="mail"
-          placeholder="E-mail"
-          keyboardType={"email-address"}
-          autoCorrect={false}
-          autoCapitalize={"none"}
-          value={email}
-          onChangeText={setEmail}
-        />
+          <Form>
+            <Input
+              iconName="mail"
+              placeholder="E-mail"
+              keyboardType={"email-address"}
+              autoCorrect={false}
+              autoCapitalize={"none"}
+              value={email}
+              onChangeText={setEmail}
+            />
 
-        <PasswordInput
-          iconName="lock"
-          placeholder="Senha"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-      </Form>
+            <PasswordInput
+              iconName="lock"
+              placeholder="Senha"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+          </Form>
 
-      <Footer>
-        <Button
-          title="Entrar"
-          color={theme.colors.button}
-          onPress={() => handleSignIn()}
-        />
+          <Footer>
+            <Button
+              title="Entrar"
+              color={theme.colors.button}
+              onPress={() => handleSignIn()}
+            />
 
-        <SignInButton onPress={register}>
-          <ButtonText>Cadastrar-se</ButtonText>
-        </SignInButton>
-      </Footer>
-    </Container>
+            <SignInButton onPress={register}>
+              <ButtonText>Cadastrar-se</ButtonText>
+            </SignInButton>
+          </Footer>
+        </Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }

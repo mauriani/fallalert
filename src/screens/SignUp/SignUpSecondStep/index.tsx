@@ -5,6 +5,7 @@ import {
   Keyboard,
   StatusBar,
   Alert,
+  Platform,
 } from "react-native";
 import * as Yup from "yup";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -83,7 +84,10 @@ export function SignUpSecondStep() {
     }
   }
   return (
-    <KeyboardAvoidingView behavior="position" enabled>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
           <StatusBar

@@ -5,6 +5,7 @@ import {
   Keyboard,
   StatusBar,
   Alert,
+  Platform,
 } from "react-native";
 import * as Yup from "yup";
 import { cpf } from "cpf-cnpj-validator";
@@ -80,7 +81,10 @@ export function SignUpFirstStep() {
     }
   }
   return (
-    <KeyboardAvoidingView behavior="position" enabled>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
           <StatusBar
