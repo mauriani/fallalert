@@ -76,8 +76,8 @@ export function Home() {
   }
 
   useEffect(() => {
-    navigation.addListener("focus", () => getForDependents());
-  }, [navigation, getForDependents]);
+    getForDependents();
+  }, [navigation]);
 
   return (
     <Fragment>

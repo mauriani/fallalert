@@ -13,7 +13,7 @@ import {
   Status,
 } from "./styles";
 
-import api from "../../services/api";
+import axios from "axios";
 
 import { HeaderStack } from "../../components/HeaderStack";
 import { Loading } from "../../components/Loading";
@@ -44,11 +44,16 @@ export function DetailsSeniors() {
   async function loadData() {
     try {
       setLoading(true);
-      // await api.get("/teste/data").then((response) => {
-      //   const data = response.data;
-      //   const last = data[data.length - 1];
-      //   setSensorData([last]);
-      // });
+
+      await axios
+        .get(
+          "https://40wvqszc8k.execute-api.us-east-1.amazonaws.com/teste/data"
+        )
+        .then((response) => {
+          const data = response.data;
+          const last = data[data.length - 1];
+          setSensorData([last]);
+        });
     } catch (error) {
       console.log(error);
     } finally {
@@ -72,7 +77,7 @@ export function DetailsSeniors() {
             <CardTitle>{name}</CardTitle>
           </Card>
 
-          {/* {sensorData.map((sensorData) => {
+          {sensorData.map((sensorData) => {
             return (
               <Content key={sensorData.id}>
                 <Title>Frequência Cardíaca</Title>
@@ -102,7 +107,7 @@ export function DetailsSeniors() {
                 </Informations>
               </Content>
             );
-          })} */}
+          })}
         </Container>
       )}
     </>

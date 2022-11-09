@@ -44,6 +44,7 @@ export function SignIn() {
   async function userValidation() {
     try {
       setLoadingAnimation(true);
+
       if (await AsyncStorage.getItem("@fallalert:user")) {
         const dataUser = JSON.parse(
           await AsyncStorage.getItem("@fallalert:user")
@@ -96,6 +97,8 @@ export function SignIn() {
   useEffect(() => {
     userValidation();
   }, []);
+
+  console.log(loadingAnimation);
 
   return (
     <Fragment>
