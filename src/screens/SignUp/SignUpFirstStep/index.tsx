@@ -6,6 +6,7 @@ import {
   StatusBar,
   Alert,
   Platform,
+  ScrollView,
 } from "react-native";
 import * as Yup from "yup";
 import { cpf } from "cpf-cnpj-validator";
@@ -63,10 +64,6 @@ export function SignUpFirstStep() {
     }
   }
 
-  function handleBack() {
-    navigation.goBack();
-  }
-
   function cpfIsInvalid(value) {
     let cpfFormatted = value.replace(/\D/g, "");
 
@@ -80,59 +77,66 @@ export function SignUpFirstStep() {
       }
     }
   }
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
-        <StatusBar
-          barStyle="dark-content"
-          translucent
-          backgroundColor="transparent"
-        />
-        <Header>
-          <BackButton onPress={handleBack} />
-
-          <Steps>
-            <Bullet active />
-            <Bullet />
-          </Steps>
-        </Header>
-
-        <Title>Crie sua{"\n"}conta</Title>
-        <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
-
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
-        >
-          <Form>
-            <FormTitle>01. Dados</FormTitle>
-
-            <Input
-              iconName="user"
-              placeholder="Nome"
-              value={name}
-              onChangeText={setName}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+      >
+        <Container>
+          <ScrollView>
+            <StatusBar
+              barStyle="dark-content"
+              translucent
+              backgroundColor="transparent"
             />
-            <Input
-              iconName="mail"
-              placeholder="Email"
-              keyboardType={"email-address"}
-              autoCorrect={false}
-              autoCapitalize={"none"}
-              value={email}
-              onChangeText={setEmail}
-            />
-            <Input
-              iconName="credit-card"
-              placeholder="CPF"
-              keyboardType={"numeric"}
-              value={cpfUser}
-              onChangeText={setCpfUser}
-            />
-          </Form>
-          <Button title="Próximo" onPress={handleNextStep} />
-        </KeyboardAvoidingView>
-      </Container>
+            <Header>
+              <BackButton onPress={handleGoBack} />
+
+              <Steps>
+                <Bullet active />
+                <Bullet />
+              </Steps>
+            </Header>
+
+            <Title>Crie sua{"\n"}conta</Title>
+            <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
+
+            <Form>
+              <FormTitle>01. Dados</FormTitle>
+
+              <Input
+                iconName="user"
+                placeholder="Nome"
+                value={name}
+                onChangeText={setName}
+              />
+              <Input
+                iconName="mail"
+                placeholder="Email"
+                keyboardType={"email-address"}
+                autoCorrect={false}
+                autoCapitalize={"none"}
+                value={email}
+                onChangeText={setEmail}
+              />
+
+              <Input
+                iconName="credit-card"
+                placeholder="CPF"
+                keyboardType={"numeric"}
+                value={cpfUser}
+                onChangeText={setCpfUser}
+              />
+            </Form>
+            <Button title="Próximo" onPress={handleNextStep} />
+          </ScrollView>
+        </Container>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 }

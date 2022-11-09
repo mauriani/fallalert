@@ -16,7 +16,7 @@ export type RootStackParamList = {
   Profile: undefined;
   SignIn: undefined;
   SignUp: undefined;
-  DetailsSeniors: undefined;
+  DetailsSeniors: { name: string; id: string; userId: string };
   AddDependency: undefined;
   SignUpFirstStep: {
     user: { name: string; email: string; cpfUser: string };

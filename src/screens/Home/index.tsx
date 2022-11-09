@@ -1,5 +1,9 @@
+import React, { useState, Fragment, useEffect } from "react";
+import { Alert, View } from "react-native";
 import { useTheme } from "styled-components/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
+import api from "../../services/api";
 
 import { Header } from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
@@ -11,65 +15,117 @@ import {
   Description,
   CardImage,
   FabButton,
+  Title,
 } from "./styles";
+import { Loading } from "../../components/Loading";
+
+interface dependentsProps {
+  id: string;
+  name: string;
+  age: number;
+  photo: string;
+  degree: string;
+  phone: string;
+  zipCode: string;
+  address: string;
+  road: string;
+  cpf: string;
+  number: number;
+  userId: string;
+}
 
 export function Home() {
   const theme = useTheme();
   const navigation = useNavigation();
 
-  function handleNavigateToDetailsSenior() {
-    navigation.navigate("DetailsSeniors");
+  const [loading, setLoading] = useState(true);
+  const [dependents, setDependents] = useState<dependentsProps[]>([]);
+
+  function handleNavigateToDetailsSenior(item: dependentsProps) {
+    navigation.navigate("DetailsSeniors", {
+      name: item.name,
+      id: item.id,
+      userId: item.userId,
+    });
   }
 
   function handleNavigateToAddSenior() {
     navigation.navigate("AddDependency");
   }
 
+  async function getForDependents() {
+    try {
+      setLoading(true);
+      if (await AsyncStorage.getItem("@fallalert:user")) {
+        const dataUser = JSON.parse(
+          await AsyncStorage.getItem("@fallalert:user")
+        );
+
+        const { id } = dataUser;
+
+        await api.get(`${id}/user/dependents`).then(async (response) => {
+          setDependents(response.data.dependents);
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      Alert.alert("Opa", "Ocorreu um erro ao verificar credenciais");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getForDependents();
+  }, []);
+
   return (
-    <Container>
-      <Header />
+    <Fragment>
+      {loading == true ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Header />
 
-      <CardHome onPress={() => handleNavigateToDetailsSenior()}>
-        <Details>
-          <Description>Nome</Description>
-          <Name>Emanuel Silva</Name>
+          {Object.values(dependents).length > 0 ? (
+            Object.values(dependents).map((item) => (
+              <CardHome
+                key={item.id}
+                onPress={() => handleNavigateToDetailsSenior(item)}
+              >
+                <Details>
+                  <Description>Nome</Description>
+                  <Name>{item.name}</Name>
 
-          <Description>Grau de parentesco</Description>
-          <Name>Pai</Name>
-        </Details>
+                  <Description>Grau de parentesco</Description>
+                  <Name>{item.degree}</Name>
+                </Details>
 
-        <CardImage
-          source={{
-            uri: "https://classic.exame.com/wp-content/uploads/2016/09/size_960_16_9_quem-sao-e-como-vivem-os-idosos-do-brasil1.jpg?quality=70&strip=info&w=960",
-          }}
-          resizeMode="contain"
-        />
-      </CardHome>
+                <CardImage
+                  source={{
+                    uri: item.photo,
+                  }}
+                  resizeMode="contain"
+                />
+              </CardHome>
+            ))
+          ) : (
+            <View>
+              <Title>
+                Você não tem nenhum dependente cadastrado no momento !
+              </Title>
+            </View>
+          )}
 
-      <CardHome onPress={() => handleNavigateToDetailsSenior()}>
-        <Details>
-          <Description>Nome</Description>
-          <Name>Glória Maria</Name>
-
-          <Description>Grau de parentesco</Description>
-          <Name>Mãe</Name>
-        </Details>
-
-        <CardImage
-          source={{
-            uri: "https://static1.conquistesuavida.com.br/articles//8/11/18/8/@/29710-vegetais-como-alface-espinafre-e-outras-article_block_media-2.jpg",
-          }}
-          resizeMode="contain"
-        />
-      </CardHome>
-
-      <FabButton activeOpacity={0.7} onPress={handleNavigateToAddSenior}>
-        <Feather
-          size={25}
-          name="plus"
-          color={theme.colors.background_secondary}
-        />
-      </FabButton>
-    </Container>
+          <FabButton activeOpacity={0.7} onPress={handleNavigateToAddSenior}>
+            <Feather
+              size={25}
+              name="plus"
+              color={theme.colors.background_secondary}
+            />
+          </FabButton>
+        </Container>
+      )}
+    </Fragment>
   );
 }

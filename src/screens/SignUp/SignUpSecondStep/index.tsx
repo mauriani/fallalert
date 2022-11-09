@@ -6,6 +6,7 @@ import {
   StatusBar,
   Alert,
   Platform,
+  ScrollView,
 } from "react-native";
 import * as Yup from "yup";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -76,7 +77,11 @@ export function SignUpSecondStep() {
         password,
       });
 
-      console.log(response.data);
+      const { message } = response.data;
+
+      Alert.alert("Sucesso", message);
+
+      navigation.navigate("SignIn");
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert("Atenção", error.message);
@@ -90,48 +95,50 @@ export function SignUpSecondStep() {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
-          <StatusBar
-            barStyle="dark-content"
-            translucent
-            backgroundColor="transparent"
-          />
-          <Header>
-            <BackButton onPress={handleBack} />
-
-            <Steps>
-              <Bullet />
-              <Bullet active />
-            </Steps>
-          </Header>
-
-          <Title>Crie sua{"\n"}conta</Title>
-          <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
-
-          <Form>
-            <FormTitle>02. Senha</FormTitle>
-
-            <PasswordInput
-              iconName="lock"
-              placeholder="Senha"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
+          <ScrollView>
+            <StatusBar
+              barStyle="dark-content"
+              translucent
+              backgroundColor="transparent"
             />
+            <Header>
+              <BackButton onPress={handleBack} />
 
-            <PasswordInput
-              iconName="lock"
-              placeholder="Repetir Senha"
-              secureTextEntry
-              value={passwordConfirm}
-              onChangeText={setPasswordConfirm}
+              <Steps>
+                <Bullet />
+                <Bullet active />
+              </Steps>
+            </Header>
+
+            <Title>Crie sua{"\n"}conta</Title>
+            <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
+
+            <Form>
+              <FormTitle>02. Senha</FormTitle>
+
+              <PasswordInput
+                iconName="lock"
+                placeholder="Senha"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+              />
+
+              <PasswordInput
+                iconName="lock"
+                placeholder="Repetir Senha"
+                secureTextEntry
+                value={passwordConfirm}
+                onChangeText={setPasswordConfirm}
+              />
+            </Form>
+
+            <Button
+              title="Cadastrar"
+              color={theme.colors.success}
+              onPress={handleRegister}
             />
-          </Form>
-
-          <Button
-            title="Cadastrar"
-            color={theme.colors.success}
-            onPress={handleRegister}
-          />
+          </ScrollView>
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

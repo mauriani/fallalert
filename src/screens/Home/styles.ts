@@ -62,3 +62,12 @@ export const FabButton = styled.TouchableOpacity`
 
   background-color: ${({ theme }) => theme.colors.main};
 `;
+
+
+
+export const Title = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.secondary_500};
+  color: ${({ theme }) => theme.colors.text_detail};
+
+  font-size: ${RFValue(25)}px;
+`;

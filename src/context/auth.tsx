@@ -32,8 +32,6 @@ interface AuthProviderProps {
 interface AuthContextData {
   user: IUser;
   signIn: (credentials: SignInCredentials) => Promise<void>;
-  // signOut: () => Promise<void>;
-  // updatedUser: (user: User) => Promise<void>;
   loading: boolean;
 }
 
@@ -46,22 +44,27 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   async function signIn({ email, password }: SignInCredentials) {
     try {
-      const response = await api.post("/sessions", {
-        email,
-        password,
-      });
+      setLoading(true);
+      await api
+        .post("/sessions", {
+          email,
+          password,
+        })
+        .then(async (response) => {
+          if (response && response.data) {
+            await AsyncStorage.setItem(
+              "@fallalert:user",
+              JSON.stringify(response.data)
+            );
 
-      if (response && response.data) {
-        await AsyncStorage.setItem(
-          "@fallalert:user",
-          JSON.stringify(response.data)
-        );
-      }
-
-      setData(response.data);
+            setData(response.data);
+          }
+        });
     } catch (err) {
       console.log(err);
       Alert.alert("Opa", "Ocorreu um erro ao verificar credenciais");
+    } finally {
+      setLoading(false);
     }
   }
 
