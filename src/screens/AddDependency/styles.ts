@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { TextInputMask } from "react-native-masked-text";
 
 export const Container = styled.View`
   flex: 1;
@@ -53,4 +54,27 @@ export const Form = styled.View`
   margin-top: 64px;
 
   margin-bottom: 16px;
+`;
+
+export const Title = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.secondary_500};
+  color: ${({ theme }) => theme.colors.text};
+
+  font-size: ${RFValue(13)}px;
+  margin: 10px 0px;
+  text-transform: uppercase;
+`;
+
+export const MaskInput = styled(TextInputMask)`
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 8px;
+  padding: 0 10px;
+
+  background-color: ${({ theme }) => theme.colors.background_secondary};
+  color: ${({ theme }) => theme.colors.text};
+  font-family: ${({ theme }) => theme.fonts.primary_400};
+  font-size: ${RFValue(15)}px;
 `;

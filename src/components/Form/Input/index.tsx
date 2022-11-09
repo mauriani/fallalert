@@ -47,6 +47,7 @@ export function Input({ iconName, value, ...rest }: Props) {
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         isFocused={isFocused}
+        value={value}
         {...rest}
       />
     </Container>

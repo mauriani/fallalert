@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react-native";
 import { useTheme } from "styled-components";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import {
   Container,
@@ -13,11 +13,13 @@ import {
   Status,
 } from "./styles";
 
+import api from "../../services/api";
+
+import { HeaderStack } from "../../components/HeaderStack";
+import { Loading } from "../../components/Loading";
+
 import heartbeat from "../../assets/heartbeat.json";
 import bloodPressure from "../../assets/bloodPressure.json";
-import { HeaderStack } from "../../components/HeaderStack";
-import api from "../../services/api";
-import { Loading } from "../../components/Loading";
 
 interface IDataProps {
   id: string;
@@ -26,18 +28,27 @@ interface IDataProps {
   oxigenLevel: string;
 }
 
+interface routeParams {
+  name: string;
+  id: string;
+  userId: string;
+}
+
 export function DetailsSeniors() {
+  const routes = useRoute();
   const [loading, setLoading] = useState(true);
   const [sensorData, setSensorData] = useState<IDataProps[]>([]);
+
+  const { name, id, userId } = routes.params as routeParams;
 
   async function loadData() {
     try {
       setLoading(true);
-      await api.get("/teste/data").then((response) => {
-        const data = response.data;
-        const last = data[data.length - 1];
-        setSensorData([last]);
-      });
+      // await api.get("/teste/data").then((response) => {
+      //   const data = response.data;
+      //   const last = data[data.length - 1];
+      //   setSensorData([last]);
+      // });
     } catch (error) {
       console.log(error);
     } finally {
@@ -58,10 +69,10 @@ export function DetailsSeniors() {
           <HeaderStack title={"Detalhes"} />
 
           <Card>
-            <CardTitle>Emanuel Silva</CardTitle>
+            <CardTitle>{name}</CardTitle>
           </Card>
 
-          {sensorData.map((sensorData) => {
+          {/* {sensorData.map((sensorData) => {
             return (
               <Content key={sensorData.id}>
                 <Title>Frequência Cardíaca</Title>
@@ -91,7 +102,7 @@ export function DetailsSeniors() {
                 </Informations>
               </Content>
             );
-          })}
+          })} */}
         </Container>
       )}
     </>

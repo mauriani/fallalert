@@ -5,7 +5,7 @@ export default {
     background_primary: "#f4f5f6",
     background_secondary: "#ffffff",
 
-    text: "#7a7a80",
+    text: "#363f5f",
     text_detail: "#aeaeb3",
     title: "#47474d",
 
