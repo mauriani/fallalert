@@ -63,7 +63,7 @@ export function SignIn() {
 
   async function handleSignIn() {
     try {
-      setLoadingAnimation(true);
+      // setLoadingAnimation(true);
       const schema = Yup.object().shape({
         password: Yup.string().required("A senha é obrigatória"),
         email: Yup.string()
@@ -86,7 +86,7 @@ export function SignIn() {
         );
       }
     } finally {
-      setLoadingAnimation(false);
+      // setLoadingAnimation(false);
     }
   }
 
@@ -97,8 +97,6 @@ export function SignIn() {
   useEffect(() => {
     userValidation();
   }, []);
-
-  console.log(loadingAnimation);
 
   return (
     <Fragment>

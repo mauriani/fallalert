@@ -50,9 +50,13 @@ export function DetailsSeniors() {
           "https://40wvqszc8k.execute-api.us-east-1.amazonaws.com/teste/data"
         )
         .then((response) => {
+          console.log(response.data);
           const data = response.data;
+          // console.log(data);
           const last = data[data.length - 1];
-          setSensorData([last]);
+          // setSensorData([last]);
+
+          setSensorData(data);
         });
     } catch (error) {
       console.log(error);
