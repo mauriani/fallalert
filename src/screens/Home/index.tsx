@@ -76,8 +76,8 @@ export function Home() {
   }
 
   useEffect(() => {
-    getForDependents();
-  }, []);
+    navigation.addListener("focus", () => getForDependents());
+  }, [navigation, getForDependents]);
 
   return (
     <Fragment>
@@ -110,9 +110,15 @@ export function Home() {
               </CardHome>
             ))
           ) : (
-            <View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Title>
-                Você não tem nenhum dependente cadastrado no momento !
+                Você não tem nenhum dependente{"\n"} cadastrado no momento !
               </Title>
             </View>
           )}

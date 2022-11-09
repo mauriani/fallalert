@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 
 import api from "../services/api";
 
@@ -56,8 +55,6 @@ function AuthProvider({ children }: AuthProviderProps) {
               "@fallalert:user",
               JSON.stringify(response.data)
             );
-
-            setData(response.data);
           }
         });
     } catch (err) {
@@ -67,6 +64,25 @@ function AuthProvider({ children }: AuthProviderProps) {
       setLoading(false);
     }
   }
+
+  async function getUser() {
+    try {
+      if (await AsyncStorage.getItem("@fallalert:user")) {
+        const dataUser = JSON.parse(
+          await AsyncStorage.getItem("@fallalert:user")
+        );
+
+        setData(dataUser);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <AuthContext.Provider

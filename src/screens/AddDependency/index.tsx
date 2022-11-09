@@ -2,16 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
-import { Feather } from "@expo/vector-icons";
 import * as Yup from "yup";
-import * as ImagePicker from "expo-image-picker";
-import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { cpf } from "cpf-cnpj-validator";
-import { TextInputMask } from "react-native-masked-text";
 import Axios from "axios";
 
-import { BackButton } from "../../components/BackButton";
+import { useAuth } from "../../context/auth";
 import { Input } from "../../components/Form/Input";
 import { Button } from "../../components/Form/Button";
 import api from "../../services/api";
@@ -33,6 +28,7 @@ import { HeaderStack } from "../../components/HeaderStack";
 export function AddDependency() {
   const theme = useTheme();
   const navigation = useNavigation();
+  const { user } = useAuth();
 
   const [loading, setLoading] = useState(true);
 
@@ -45,30 +41,6 @@ export function AddDependency() {
   const [address, setAddress] = useState("");
   const [number, setNumber] = useState("");
   const [age, setAge] = useState("");
-
-  const [userId, setUserId] = useState("");
-
-  // async function pickImage() {
-  //   // No permissions request is necessary for launching the image library
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-
-  //   if (!result.cancelled) {
-  //     const { uri, type } = result as ImageInfo;
-
-  //     const data = {
-  //       type: type,
-  //       name: userId,
-  //       uri: uri,
-  //     };
-
-  //     setImage(uri);
-  //   }
-  // }
 
   async function validateFields() {
     try {
@@ -115,22 +87,23 @@ export function AddDependency() {
   async function createNewDependent() {
     try {
       setLoading(true);
+
       await api
-        .post(`${userId}/dependents`, {
+        .post(`${user.id}/dependents`, {
           name,
           age: parseInt(age),
+          photo: `https://avatars.dicebear.com/api/personas/${user.name}%20doe.png`,
           degree,
-          cpf: cpfDep,
           phone,
-          photo:
-            "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png",
           zipCode,
-          road,
           address,
+          road,
+          cpf: cpfDep,
           number: parseInt(number),
         })
-        .then(async (response) => {
+        .then((response) => {
           const { message } = response.data;
+
           Alert.alert("Sucesso", message);
           navigation.navigate("Home");
         });
@@ -175,25 +148,6 @@ export function AddDependency() {
     }
   }
 
-  async function getUser() {
-    try {
-      if (await AsyncStorage.getItem("@fallalert:user")) {
-        const dataUser = JSON.parse(
-          await AsyncStorage.getItem("@fallalert:user")
-        );
-
-        setUserId(dataUser.id);
-      }
-    } catch (e) {
-      console.log(e);
-    } finally {
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
   useEffect(() => {
     if (zipCode) {
       getZipCode();
@@ -232,6 +186,7 @@ export function AddDependency() {
           <Input
             iconName="user"
             placeholder="Idade"
+            keyboardType={"numeric"}
             value={age}
             onChangeText={setAge}
           />
