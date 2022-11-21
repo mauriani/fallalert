@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import Lottie from "lottie-react-native";
 import { useTheme } from "styled-components";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -38,6 +39,7 @@ export function DetailsSeniors() {
   const routes = useRoute();
   const [loading, setLoading] = useState(true);
   const [sensorData, setSensorData] = useState<IDataProps[]>([]);
+  const [time, setTime] = useState(0);
 
   const { name, id, userId } = routes.params as routeParams;
 
@@ -50,11 +52,9 @@ export function DetailsSeniors() {
           "https://40wvqszc8k.execute-api.us-east-1.amazonaws.com/teste/data"
         )
         .then((response) => {
-          console.log(response.data);
           const data = response.data;
-          // console.log(data);
-          const last = data[data.length - 1];
-          // setSensorData([last]);
+
+          // const last = data[data.length - 1];
 
           setSensorData(data);
         });
@@ -66,7 +66,11 @@ export function DetailsSeniors() {
   }
 
   useEffect(() => {
-    loadData();
+    const interval = setInterval(() => {
+      loadData();
+    }, 8000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -76,42 +80,54 @@ export function DetailsSeniors() {
       ) : (
         <Container>
           <HeaderStack title={"Detalhes"} />
-
           <Card>
             <CardTitle>{name}</CardTitle>
           </Card>
+          {sensorData.length > 0 ? (
+            sensorData.map((sensorData) => {
+              return (
+                <Content key={sensorData.id}>
+                  <Title>Frequência Cardíaca</Title>
+                  <Informations>
+                    <Lottie
+                      source={heartbeat}
+                      autoPlay
+                      style={{ height: 150 }}
+                      resizeMode="contain"
+                      loop={true}
+                    />
 
-          {sensorData.map((sensorData) => {
-            return (
-              <Content key={sensorData.id}>
-                <Title>Frequência Cardíaca</Title>
-                <Informations>
-                  <Lottie
-                    source={heartbeat}
-                    autoPlay
-                    style={{ height: 150 }}
-                    resizeMode="contain"
-                    loop={true}
-                  />
+                    <Status>{sensorData.heartRate} bpm</Status>
+                  </Informations>
 
-                  <Status>{sensorData.heartRate} bpm</Status>
-                </Informations>
+                  <Title>Nivel de oxigênio</Title>
+                  <Informations>
+                    <Lottie
+                      source={bloodPressure}
+                      autoPlay
+                      style={{ height: 150 }}
+                      resizeMode="contain"
+                      loop={true}
+                    />
 
-                <Title>Nivel de oxigênio</Title>
-                <Informations>
-                  <Lottie
-                    source={bloodPressure}
-                    autoPlay
-                    style={{ height: 150 }}
-                    resizeMode="contain"
-                    loop={true}
-                  />
-
-                  <Status>{sensorData.oxigenLevel}</Status>
-                </Informations>
-              </Content>
-            );
-          })}
+                    <Status>{sensorData.oxigenLevel}</Status>
+                  </Informations>
+                </Content>
+              );
+            })
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Title>
+                Você não tem nenhum dado{"\n"} cadastrado no momento !
+              </Title>
+            </View>
+          )}
         </Container>
       )}
     </>
