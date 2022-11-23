@@ -1,6 +1,6 @@
 # fallalert
 
-<img src="[https://user-images.githubusercontent.com/32397288/143300733-8af32555-f2c7-4ac7-9e26-cf526a5eb439.jpeg](https://user-images.githubusercontent.com/32397288/203554477-20e2558b-eadb-4a9d-bc03-d2b21fbc9153.png)">
+<img src="https://user-images.githubusercontent.com/32397288/203554477-20e2558b-eadb-4a9d-bc03-d2b21fbc9153.png">
 
 ## 🚀 Sobre o projeto
 
