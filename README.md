@@ -9,6 +9,7 @@ Esse projeto foi desenvolvido durante a disciplina de projeto interdisciplinar q
 - Typescript
 - Expo
 - Animação com biblioteca do lottie
+- consumo de api da aws e local
 
 ## Executando Projeto
 
