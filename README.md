@@ -25,7 +25,8 @@ $ yarn
 
 # Para iniciar a aplicação, primeiro inicie a API
 $ https://github.com/mauriani/server-fallalert.git
-	# install dependências
+
+# install dependências
 $ yarn
 $ yarn dev
 
