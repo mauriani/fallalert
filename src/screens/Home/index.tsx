@@ -7,6 +7,8 @@ import api from "../../services/api";
 
 import { Header } from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
+import { Loading } from "../../components/Loading";
+
 import {
   Container,
   CardHome,
@@ -17,7 +19,6 @@ import {
   FabButton,
   Title,
 } from "./styles";
-import { Loading } from "../../components/Loading";
 
 interface dependentsProps {
   id: string;

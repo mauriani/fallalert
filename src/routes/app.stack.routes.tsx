@@ -5,6 +5,7 @@ import { SignIn } from "../screens/SignIn";
 import { Profile } from "../screens/Profile";
 import { DetailsSeniors } from "../screens/DetailsSeniors";
 import { AddDependency } from "../screens/AddDependency";
+import { Alert } from "../screens/Alert";
 
 import { SignUpFirstStep } from "../screens/SignUp/SignUpFirstStep";
 import { SignUpSecondStep } from "../screens/SignUp/SignUpSecondStep";
@@ -24,6 +25,8 @@ export type RootStackParamList = {
   SignUpSecondStep: {
     user: { name: string; email: string; cpfUser: string };
   };
+
+  Alert: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
@@ -44,6 +47,7 @@ export function AppStackRoutes() {
 
       <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
       <Screen name="SignUpSecondStep" component={SignUpSecondStep} />
+      <Screen name="Alert" component={Alert} />
     </Navigator>
   );
 }

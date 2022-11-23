@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import Lottie from "lottie-react-native";
-import { useTheme } from "styled-components";
+
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import {
@@ -37,11 +37,11 @@ interface routeParams {
 
 export function DetailsSeniors() {
   const routes = useRoute();
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [sensorData, setSensorData] = useState<IDataProps[]>([]);
-  const [time, setTime] = useState(0);
 
-  const { name, id, userId } = routes.params as routeParams;
+  const { name } = routes.params as routeParams;
 
   async function loadData() {
     try {
@@ -54,9 +54,19 @@ export function DetailsSeniors() {
         .then((response) => {
           const data = response.data;
 
-          // const last = data[data.length - 1];
+          const newData = data.sort((a, b) => {
+            return +new Date(b.date) - +new Date(a.date);
+          });
 
-          setSensorData(data);
+          const values = newData.slice(0, 1);
+
+          const fall = values.map((value) => {
+            return value.fallen;
+          });
+
+          setSensorData(values);
+
+          if (fall == 1) navigation.navigate("Alert");
         });
     } catch (error) {
       console.log(error);
@@ -68,7 +78,7 @@ export function DetailsSeniors() {
   useEffect(() => {
     const interval = setInterval(() => {
       loadData();
-    }, 8000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
@@ -128,6 +138,13 @@ export function DetailsSeniors() {
               </Title>
             </View>
           )}
+
+          {/* <Button
+            title="ALERTA"
+            light={false}
+            background={theme.colors.main}
+            onPress={() => Vibration.vibrate(30 * ONE_SECOND_IN_MS)}
+          /> */}
         </Container>
       )}
     </>

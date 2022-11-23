@@ -23,7 +23,7 @@ export function Button({
         light != true
           ? { backgroundColor: background }
           : {
-              backgroundColor: theme.colors.background_primary,
+              backgroundColor: theme.colors.background_secondary,
               borderColor: background,
               borderWidth: 2,
             }
