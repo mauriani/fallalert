@@ -1,4 +1,4 @@
-# fallalert
+# FallAlert
 
 <img src="https://user-images.githubusercontent.com/32397288/203554477-20e2558b-eadb-4a9d-bc03-d2b21fbc9153.png">
 
