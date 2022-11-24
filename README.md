@@ -4,7 +4,7 @@
 
 ## 🚀 Sobre o projeto
 
-Esse projeto foi desenvolvido durante a disciplina de projeto interdisciplinar quatro. Nosso projeto é desenvolvido foi desenvolvido juntamente com uma pulseira que enviar os batimentos cardíaco do idoso e o nível de oxigênio, além disso o mesmo detecta a queda do idoso. Quando a queda acontece o app começa a vibrar é o usuário será redirecionado para uma tela de atenção que só será desativada caso ele pressione o botão de “ok”.
+Esse projeto foi desenvolvido durante a disciplina de projeto interdisciplinar quatro. Nosso projeto foi desenvolvido juntamente com uma pulseira que enviar os batimentos cardíaco do idoso e o nível de oxigênio, além disso o mesmo detecta a queda do idoso. Quando a queda acontece o app começa a vibrar é o usuário será redirecionado para uma tela de atenção que só será desativada caso ele pressione o botão de “ok”.
 
 ## 🖥️ Tecnologias usadadas
 
